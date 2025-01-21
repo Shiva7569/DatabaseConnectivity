@@ -1,0 +1,77 @@
+1)Load the dataset
+
+ans: import pandas as pd
+     uber_data=pd.read_csv("Uber.csv")
+
+2)Display basic info about dataset
+
+ans: print(uber_data.info())
+
+3)Check for missing values
+ 
+ans: print(uber_data.isnull().sum())
+
+4)Drop rows with missing values
+
+ans: drop_values=uber_data.dropna()
+     print(drop_values)
+
+5)fill missing values (propose column with unknown value)
+
+ans: filled=uber_data.fillna(4)
+     print(filled)
+
+6)Check and remove duplicates
+
+ans: duplicates=uber_data[uber_data.duplicated()]
+     print(dublicates)
+     removed_duplicates=uber_data.drop_duplicates()
+     print(removed_duplicates)
+
+7)Convert START_DATE and END_DATE to datetime
+
+ans: print(uber_data.dtypes)
+     user_data['START_DATE*'] = pd.to_datetime(user_data['START_DATE*'],      format='%m/%d/%Y %H:%M')
+     user_data['END_DATE*'] = pd.to_datetime(user_data['END_DATE*'], format='%m/%d/%Y %H:%M')
+    print(uber_data.dtypes)
+
+8) Total number of rides per category
+ 
+ans: ans=uber_data.groupby("CATEGORY*").size()
+     print(ans)
+
+9)Total miles traveled for each purpose:
+
+ans:  grouped=uber_data.groupby("PURPOSE*")["MILES*"].agg('sum')
+      print(grouped)
+
+10)Average distance for business vs. personal rides:
+
+ans: average_distance = uber_data.groupby("CATEGORY*")["MILES*"].mean()
+     print(average_distance)
+
+11)Add a column for cost estimation (assuming $2 per mile):
+
+ans: uber_data["COST ESTIMATION"]=uber_data["MILES*"]*2
+     print(uber_data)
+
+12)Filter rides longer than 50 miles:
+
+ans: import numpy as np
+     rides=uber_data[uber_data["MILES*"]>50]
+     print(rides)
+
+13)What is the total number of business trips versus personal trips?
+
+ans: ans=uber_data.groupby("CATEGORY*").size()
+     print(ans)
+
+14)What percentage of trips are business versus personal?
+
+ans: total_rides = uber_data.groupby("CATEGORY*").size()
+     totals = total_rides.sum()
+     business_percentage = (total_rides["Business"] / totals) * 100
+     print(business_percentage)
+     personal_percentage = (total_rides["Personal"] / totals) * 100
+     print(personal_percentage)
+      
